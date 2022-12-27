@@ -40,6 +40,12 @@ endif()
 
 find_package(Eigen3 3.1.0 REQUIRED)
 find_package(Pangolin REQUIRED)
+find_package(PCL 1.7 REQUIRED)
+
+
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 include_directories(
 ${PROJECT_SOURCE_DIR}
@@ -59,6 +65,16 @@ ${PROJECT_SOURCE_DIR}/../../../Thirdparty/g2o/lib/libg2o.so
 ${PROJECT_SOURCE_DIR}/../../../lib/libORB_SLAM3.so
 -lboost_system
 )
+find_package(FLANN)
+if(FLANN_FOUND)
+include_directories(${FLANN_INCLUDE_DIRS})
+set(LIBS ${LIBS} ${FLANN_LIBS})
+else()
+message(STATUS "FLANN not found so disabling normal thresholding")
+target_compile_definitions(Monosub PUBLIC DISABLE_FLANN)
+endif()
+
+
 
 # Node for monocular camera
 rosbuild_add_executable(Mono
@@ -66,6 +82,13 @@ src/ros_mono.cc
 )
 
 target_link_libraries(Mono
+${LIBS}
+)
+rosbuild_add_executable(Monopub
+src/ros_mono_pub.cc
+)
+
+target_link_libraries(Monopub
 ${LIBS}
 )
 

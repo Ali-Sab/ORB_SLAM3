@@ -198,6 +198,8 @@ public:
     // Frame timestamp.
     double mTimeStamp;
 
+    bool mbIsSet;
+
     // Calibration matrix and OpenCV distortion parameters.
     cv::Mat mK;
     Eigen::Matrix3f mK_;
@@ -316,7 +318,7 @@ private:
     // Assign keypoints to the grid for speed up feature matching (called in the constructor).
     void AssignFeaturesToGrid();
 
-    bool mbIsSet;
+    //bool mbIsSet;
 
     bool mbImuPreintegrated;
 

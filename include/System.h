@@ -39,7 +39,7 @@
 #include "Viewer.h"
 #include "ImuTypes.h"
 #include "Settings.h"
-
+#include "Converter.h"
 
 namespace ORB_SLAM3
 {
@@ -101,6 +101,13 @@ public:
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+    Atlas* getMap() {
+		return mpAtlas;
+	}
+	Tracking* getTracker(){ return mpTracker; }
+	LocalMapping* getLocalMapping(){ return mpLocalMapper; }
+	LoopClosing* getLoopClosing(){ return mpLoopCloser; }
+
     // Initialize the SLAM system. It launches the Local Mapping, Loop Closing and Viewer threads.
     System(const string &strVocFile, const string &strSettingsFile, const eSensor sensor, const bool bUseViewer = true, const int initFr = 0, const string &strSequence = std::string());
 

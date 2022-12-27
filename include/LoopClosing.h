@@ -81,6 +81,8 @@ public:
     void RequestFinish();
 
     bool isFinished();
+    bool mbLoopDetected;
+
 
     Viewer* mpViewer;
 
@@ -186,7 +188,7 @@ protected:
     //-------
     Map* mpLastMap;
 
-    bool mbLoopDetected;
+    //bool mbLoopDetected;
     int mnLoopNumCoincidences;
     int mnLoopNumNotFound;
     KeyFrame* mpLoopLastCurrentKF;
