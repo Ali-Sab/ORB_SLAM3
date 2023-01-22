@@ -11,7 +11,7 @@ def exit_handler(signum, frame):
 signal.signal(signal.SIGINT, exit_handler)
 
 def main(argv):
-    inputfile = 'drone_lab_test2.avi'
+    inputfile = 'rotation_video2.avi'
     try:
         opts, args = getopt.getopt(argv,"hi:",["ifile="])
     except getopt.GetoptError:

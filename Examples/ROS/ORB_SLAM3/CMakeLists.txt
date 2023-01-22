@@ -63,7 +63,11 @@ ${Pangolin_LIBRARIES}
 ${PROJECT_SOURCE_DIR}/../../../Thirdparty/DBoW2/lib/libDBoW2.so
 ${PROJECT_SOURCE_DIR}/../../../Thirdparty/g2o/lib/libg2o.so
 ${PROJECT_SOURCE_DIR}/../../../lib/libORB_SLAM3.so
+${PROJECT_SOURCE_DIR}/../../../lib/libopencv_core.so
+${PROJECT_SOURCE_DIR}/../../../lib/libopencv_imgproc.so
+${PROJECT_SOURCE_DIR}/../../../lib/libopencv_imgcodecs.so
 -lboost_system
+-llz4
 )
 find_package(FLANN)
 if(FLANN_FOUND)
@@ -75,6 +79,9 @@ target_compile_definitions(Monosub PUBLIC DISABLE_FLANN)
 endif()
 
 
+rosbuild_add_executable(Monosub
+src/ros_mono_sub.cc
+)
 
 # Node for monocular camera
 rosbuild_add_executable(Mono
@@ -89,6 +96,9 @@ src/ros_mono_pub.cc
 )
 
 target_link_libraries(Monopub
+${LIBS}
+)
+target_link_libraries(Monosub
 ${LIBS}
 )
 
