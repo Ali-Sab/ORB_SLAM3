@@ -94,10 +94,23 @@ ${LIBS}
 rosbuild_add_executable(Monopub
 src/ros_mono_pub.cc
 )
+rosbuild_add_executable(MonopubInertial
+src/ros_mono_pub_inertial.cc
+)
+rosbuild_add_executable(MonopubStereoInertial
+src/ros_mono_pub_stereo_inertial.cc
+)
 
 target_link_libraries(Monopub
 ${LIBS}
 )
+target_link_libraries(MonopubInertial
+${LIBS}
+)
+target_link_libraries(MonopubStereoInertial
+${LIBS}
+)
+
 target_link_libraries(Monosub
 ${LIBS}
 )
