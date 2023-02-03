@@ -173,7 +173,7 @@ int main(int argc, char **argv){
 		ImuGrabber imugb;
 		ImageGrabber igb(SLAM,&imugb,bEqual,pub_pts_and_pose, pub_all_kf_and_pts);
 		// Maximum delay, 5 seconds
-  	    ros::Subscriber sub_imu = nodeHandler.subscribe("/imu", 1000, &ImuGrabber::GrabImu, &imugb); 
+  	    ros::Subscriber sub_imu = nodeHandler.subscribe("/imu0", 1000, &ImuGrabber::GrabImu, &imugb); 
 		ros::Subscriber sub = nodeHandler.subscribe(image_topic, 100, &ImageGrabber::GrabImage, &igb);
 		ros::Subscriber subTest = nodeHandler.subscribe("test/raw", 10, printFunction);
 		ros::Subscriber subImageTest = nodeHandler.subscribe("test/image", 10, reportImage);
@@ -518,7 +518,7 @@ cv::Mat ImageGrabber::GetImage(const sensor_msgs::ImageConstPtr &img_msg)
 }
 
 void ImageGrabber::SyncWithImu()
-{
+{ printf("sync with IMU called\n");
   while(1)
   {
     cv::Mat im;
@@ -553,7 +553,7 @@ void ImageGrabber::SyncWithImu()
       mpImuGb->mBufMutex.unlock();
       if(mbClahe)
         mClahe->apply(im,im);
-
+	  printf("Calling IMU SLAM\n");
       SLAM.TrackMonocular(im,tIm,vImuMeas);
     }
 
@@ -563,7 +563,7 @@ void ImageGrabber::SyncWithImu()
 }
 
 void ImuGrabber::GrabImu(const sensor_msgs::ImuConstPtr &imu_msg)
-{
+{ printf("imu reading in progress\n");
   mBufMutex.lock();
   imuBuf.push(imu_msg);
   mBufMutex.unlock();
