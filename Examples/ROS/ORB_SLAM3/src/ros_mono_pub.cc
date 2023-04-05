@@ -53,7 +53,7 @@ bool read_from_topic = false, read_from_camera = false;
 //for connecting to tello
 //http://wiki.ros.org/tello_driver
 //just by doing roslaunch, we can get tello to publish images? to the below topic?
-std::string image_topic = "camera/image_raw";
+std::string image_topic = "tello/image_raw";
 //std::string image_topic = "/camera/image_raw"; // change to /tello
 int all_pts_pub_gap = 0;
 bool show_viewer = true;
